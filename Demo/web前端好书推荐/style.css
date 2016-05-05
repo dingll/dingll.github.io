@@ -1,0 +1,39 @@
+body{
+padding-top:50px;
+padding-bottom:40px;
+color:#5a5a5a;
+}
+
+.carousel-inner{
+height:500px;
+margin-bottom:60px;
+}
+
+.carousel-inner .item{
+height:500px;
+
+}
+
+.carousel-inner .item img{
+width:100%;
+}
+
+.carousel-caption p{
+margin-bottom:20px;
+font-size:20px;
+line-height:1.8;
+color:gray;
+}
+
+.summary{
+padding-left:15px;
+}
+
+.summary .row .col-md-4{
+margin-bottom:20px;
+text-align:center;
+}
+
+footer{
+margin-top:50px;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div{
+            width:200px;
+            height: 200px;
+            border: 1px solid #000;
+            /*开始渐变*/
+            background: linear-gradient(top,#FFFFFF,#f8f8f8);
+            background: -webkit-linear-gradient(top,#FFFFFF,#f8f8f8);/*chrome and safari*/
+            background: -moz-linear-gradient(top,#FFFFFF,#f8f8f8);/*firefox*/
+            background: -ms-linear-gradient(top,#FFFFFF,#f8f8f8);/*IE10以上*/
+            /*IE8、9滤镜*/
+            -ms-filter:"progid:DXImageTransform.Microsoft.gradient(GrandientType=0,startColorstr=red,endColorstr=orange)";
+            /*IE6、7放弃治疗，hack独立样式*/
+            +background:#f9f9f9;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="div"></div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   <meta charset="utf-8">
+      <title>web前端好书推荐</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">     
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+	  <link rel="stylesheet" type="text/css" href="style.css">
+   </head>
+   <body>
+   <!--导航栏开始 -->
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="menu-nav">
+   <div class="container">
+   <div class="navbar-header">
+      <a class="navbar-brand" href="#">web前端好书推荐</a>
+   </div>
+   <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+         <li class="active"><a href="#myCarousel">综述</a></li>
+         <li><a href="#summary-container">简述</a></li>
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               特点 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+               <li><a href="#feature-tab" data-tab="tab-css">CSS那些事儿</a></li>
+               <li><a href="#feature-tab" data-tab="tab-jsgaoji">JS高级程序设计</a></li>       
+               <li><a href="#feature-tab" data-tab="tab-jsquanwei">JS权威指南</a></li>
+            </ul>
+         </li>
+
+
+		 <li><a href="#" data-toggle="modal" data-target="#about-modal">关于</a></li>
+      </ul>
+   </div>
+   </div>
+</nav>
+
+<!--轮播图-->
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+   <!-- 轮播（Carousel）指标 -->
+   <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+   </ol>   
+   <!-- 轮播（Carousel）项目 -->
+   <div class="carousel-inner">
+      <div class="item active">
+         <img src="images/cssnxser.jpg" alt="First slide">
+         <div class="carousel-caption">
+		 <p>全书以传达CSS布局思维为中心，通过页面中的文字、图片、表格、表单等常见元素的处理及各种页面布局方式的使用，使读者能深入了解到如何在页面中更好地运用CSS布局。</p>
+		 </div>
+      </div>
+      <div class="item">
+         <img src="images/jsgaoji.jpg" alt="Second slide">
+         <div class="carousel-caption">
+		 <p>主要涉及JavaScript的语言特点、JavaScript与浏览器的交互、更高级的JavaScript技巧，以及与在Web应用程序中部署JavaScript解决方案有关的问题，最后应用所有这些知识来创建动态用户界面。</p>
+		 </div>
+      </div>
+      <div class="item">
+         <img src="images/jsquanwei.jpg" alt="Third slide">
+         <div class="carousel-caption">
+		 <p>分为“基础知识点介绍”和“参考指南”两部分，这种结构得到了读者相当大的认可，满足了他们学习基础知识和参考查阅难点的双重需要。而这也是其他同类图书所不及的。</P>
+		 </div>
+      </div>
+   </div>
+   <!-- 轮播（Carousel）导航 -->
+   <a class="carousel-control left" href="#myCarousel" 
+      data-slide="prev">&lsaquo;</a>
+   <a class="carousel-control right" href="#myCarousel" 
+      data-slide="next">&rsaquo;</a>
+</div>
+<!--主要内容-->
+<div class="summary container">
+<!--主要内容-->
+   <div class="row" id="summary-container">
+       <div class="col-md-4">
+	       <img class="img-circle" src="images/img-css.jpg" alt="CSS那些事儿">
+		   <h2>CSS那些事儿</h2>
+		   <p>可能程序员语言表达都有所欠缺，所以不要刻意纠结书中的表达问题或语法。另外，很多书友认为，该书不太适合新手入门，更适合进阶学习者。</p>
+		   <p><a class="btn btn-primary" href="http://baike.baidu.com/link?url=Zh9HfIccFL13wSkHnqaTOOkVpzAB3fdLwB421wev3-pEZv7BgKhFBg6fcHgqk1oKlCun7CpNz9BXa9oRmoEb7K" role="button" target="_blank">查看详情</a></p>
+	   </div>
+	   <div class="col-md-4">
+	       <img class="img-circle" src="images/img-jsgaoji.jpg" alt="JS高级程序设计">
+		   <h2>JS高级程序设计</h2>
+		   <p>亲身体验，这绝对是一本好书，是一本好书，好书。看轮播图上的简介就知道，既有基础知识讲解，又有实例串烧，推荐。</p>
+		   <p><a class="btn btn-primary" href="http://baike.baidu.com/view/605930.htm" role="button" target="_blank">查看详情</a></p>
+	   </div>
+	   <div class="col-md-4">
+	       <img class="img-circle" src="images/img-jsquanwei.jpg" alt="JS权威指南">
+		   <h2>JS权威指南</h2>
+		   <p>犀牛书不多说，入了猿门的人大概都知道，涉及内容比较广，知名度比较大，而且字里行间不乏洋人的小幽默，还是很不错的。</p>
+		   <p><a class="btn btn-primary" href="http://baike.baidu.com/view/1935786.htm" role="button" target="_blank">查看详情</a></p>
+	   </div>
+   </div>
+   <!--特点-->
+   <hr class="feature-divider">
+
+   <ul class="nav nav-tabs" role="tablist" id="feature-tab">
+       <li class="active"><a href="#tab-css" role="tab" data-toggle="tab">CSS那些事儿</a></li>
+	   <li><a href="#tab-jsgaoji" role="tab" data-toggle="tab">JS高级程序设计</a></li>
+	   <li><a href="#tab-jsquanwei" role="tab" data-toggle="tab">JS权威指南</a></li>
+   </ul>
+
+   <div class="tab-content">
+      <div class="tab-pane active" id="tab-css">
+	      <div class="row feature">
+		      <div class="col-md-7">
+			      <h2 class="feature-heading">CSS那些事儿 <span class="text-muted"> 林小志</span></h2>
+			      <p class="lead">无论是CSS布局的初学者还是具有一定水准的读者，阅读本书之后将会发现，原来CSS样式居然是这么好玩的东西。本书适合网站开发人员、网页设计人员参考学习，同时也适合作为相关培训机构的教材。</p>
+			  </div>
+			  <div class="col-md-5">
+                  <img class="feature-image img-responsive img-rounded" src="images/img-css.jpg" alt="CSS那些事儿">
+			  </div>
+		  </div>
+	  </div>
+
+	  <div class="tab-pane" id="tab-jsgaoji">
+	      <div class="row feature">
+		      <div class="col-md-7">
+			      <h2 class="feature-heading">JS高级程序设计 <span class="text-muted"> Nicholas C.Zakas</span></h2>
+			      <p class="lead">扎卡斯良心之作，本人觉得最好的JS书籍，没有之一，不赘述。</p>
+			  </div>
+			  <div class="col-md-5">
+                  <img class="feature-image img-responsive img-rounded" src="images/img-jsgaoji.jpg" alt="JS高级程序设计">
+			  </div>
+		  </div>
+	  </div>
+
+	  <div class="tab-pane" id="tab-jsquanwei">
+	      <div class="row feature">
+		      <div class="col-md-7">
+			      <h2 class="feature-heading">JS权威指南 <span class="text-muted"> David Flanagan</span></h2>
+			      <p class="lead">已经更到第六版了，前端必备工具书，不能只读一遍。</p>
+			  </div>
+			  <div class="col-md-5">
+                  <img class="feature-image img-responsive img-rounded" src="images/img-jsquanwei.jpg" alt="JS权威指南">
+			  </div>
+		  </div>
+	  </div>
+   </div>
+<!--关于-->
+   <div class="modal fade" id="about-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+       <div class="modal-dialog">
+	       <div class="modal-content">
+		       <div class="modal-header">
+			       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+				   <h4 class="modal-title" id="modal-label">关于</h4>
+		       </div>
+			   <div class="modal-body">
+			       <p>这是我创建的第一个bootstrap静态网页，功能很简单，但是鉴于bootstrap本身的优雅简洁，此demo也算结构清晰。通过这个页面的制作，我初步了解了bootstrap组件以及js插件的应用，深感该框架之强大，在此致谢开发者们！同时感到所包含内容相对零碎，需要多加练习才能得心应手。</p>
+			   </div>
+			   <div class="modal-footer">
+                   <button type="button" class="btn btn-default" data-dismiss="modal">了解了</button>
+			   </div>
+		   </div>
+	   </div>
+   </div>
+   
+   <hr class="feature-divider">
+   <!--页脚版权信息-->
+   <footer>
+       <p class="pull-right"><a href="#top">回到顶部</a></p>
+	   <p>&copy; 2016 丁丽丽</p>
+   </footer>
+</div>
+
+
+
+
+      <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>     
+      <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+   </body>
+</html>

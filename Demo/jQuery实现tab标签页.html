@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="jquery.js"></script>
+<style>
+    body{
+        margin: 50px;
+    }
+li{
+    list-style-type: none;
+
+    float:left;
+    border:1px solid #abcdef;
+    cursor: pointer;
+    padding: 0 15px;
+    margin-right: 3px;
+}
+ul>li.selected{
+    background-color: aquamarine;
+}
+#ul{
+    height:30px;
+    line-height:30px;
+    margin-bottom:10px;
+    margin-top: 0;
+}
+
+
+    #content div{
+        width:300px;
+        height:200px;
+        border:1px solid #abcdef;
+        display: none;
+
+    }
+#content div.show{
+    display: block;
+}
+</style>
+</head>
+
+
+
+<body>
+<div id="ul">
+<ul>
+    <li class="selected">php</li>
+    <li>ruby</li>
+    <li>python</li>
+</ul>
+</div>
+
+<div id="content">
+    <div class="show">php简介</div>
+    <div>ruby简介</div>
+    <div>python简介</div>
+</div>
+
+
+<script type="text/javascript">
+    $("li").click(function(){
+
+        $(this).addClass("selected").siblings().removeClass("selected");
+        $("#content>div").eq($(this).index()).show().siblings().hide();
+    })
+</script>
+</body>
+</html>

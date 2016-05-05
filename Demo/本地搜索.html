@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <script src="jquery.js"></script>
+    <style>
+        table{
+            width:300px ;
+            border:1px solid #abcdef;
+            border-collapse: collapse;
+        }
+        tr{
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        td,th{
+            border:1px solid #abcdef;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>成绩</th>
+    </tr>
+    <tr>
+        <td>丁丽丽</td>
+        <td>女</td>
+        <td>19</td>
+        <td>88</td>
+    </tr>
+    <tr>
+        <td>王万泽</td>
+        <td>男</td>
+        <td>20</td>
+        <td>72</td>
+    </tr>
+    <tr>
+        <td>宁元元</td>
+        <td>女</td>
+        <td>21</td>
+        <td>79</td>
+    </tr>
+    <tr>
+        <td>刘淼</td>
+        <td>女</td>
+        <td>20</td>
+        <td>83</td>
+    </tr>
+    <tr>
+        <td>田佳</td>
+        <td>男</td>
+        <td>22</td>
+        <td>54</td>
+    </tr>
+    <tr>
+        <td>吴玉波</td>
+        <td>男</td>
+        <td>21</td>
+        <td>86</td>
+    </tr>
+</table>
+<input type="text"/>
+<input type="button" value="搜索"/>
+
+<script>
+    $("input:button").click(function(){
+        var text = $("input:text").val();
+        $("table tr:not(:first)").hide().filter(":contains('"+text+"')").show();
+    })
+</script>
+</body>
+</html>

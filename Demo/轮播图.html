@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <script src="jquery.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        li{
+            list-style-type: none;
+        }
+        body{
+            margin: 50px;
+        }
+        .wrap{
+            width: 500px;
+            height: 350px;
+            border:3px solid #ff0000;
+            overflow: hidden;
+            position:relative;
+        }
+        .wrap ul{
+            width: 2500px;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+        .wrap ul li{
+            float: left;
+            width:500px;
+        }
+        .wrap ol{
+            position:absolute;
+            bottom:10px;
+            right:10px;
+        }
+        .wrap ol li{
+            float: left;
+            width:20px;
+            height:20px;
+            line-height: 20px;
+            text-align: center;
+            background: #000000;
+            color:#ffffff;
+            margin-right:3px;
+            cursor: pointer;
+        }
+        .wrap ol li.current{
+            background:#ffffff ;
+            color:black;
+            border:2px solid #0000ff;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <ul>
+        <li><img src="slider-img/1.jpg" /></li>
+        <li><img src="slider-img/2.jpg" /></li>
+        <li><img src="slider-img/3.jpg" /></li>
+        <li><img src="slider-img/4.jpg" /></li>
+        <li><img src="slider-img/5.jpg" /></li>
+    </ul>
+    <ol>
+        <li class="current">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ol>
+</div>
+
+<script>
+$(function(){
+    var Oli = $("ol>li");
+    var Uli = $("ul>li");
+    var UliWidth = Uli.width();
+    var _now = 0;
+    var _now2 = 0;
+    var timeId;
+    //鼠标点击序号时改变图片
+    Oli.click(function(){
+        _now = index;
+        var index = $(this).index();
+        $(this).addClass("current").siblings().removeClass("current");
+        $("ul").animate({"left":-UliWidth*index},1000)
+    })
+    //图片运动的方式
+    function slider(){
+        if(_now==Oli.size()-1)
+        {
+            Uli.eq(0).css({
+                "position":"relative",
+                "left":$("ul").width()
+            })
+            _now=0;
+        }
+        else{
+            _now++;
+        }
+        _now2++;
+        Oli.eq(_now).addClass("current").siblings().removeClass("current");
+        $("ul").animate({"left":-UliWidth*_now2},1000,function(){
+            if(_now==0){
+                Uli.eq(0).css("position","static");
+                $("ul").css("left",0);
+                _now2 = 0;}
+        })
+        }
+
+    timeId = setInterval(slider, 1500);
+//鼠标悬停时，图片不再轮播
+    $(".wrap").mouseover(function(){
+        clearInterval(timeId);
+    })
+    $(".wrap").mouseout(function(){
+        timeId = setInterval(slider, 1500);
+    })
+})
+</script>
+</body>
+</html>

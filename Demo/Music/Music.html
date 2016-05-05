@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="js/jquery.js"></script>
+  <style>
+  *{margin:0}
+  #Music{
+  width:100%;
+  height:55px;
+  background:rgb(32,9,53) url(images/topbg1.jpg) no-repeat top center;
+  margin-top:100px;
+  }
+  #Menu{
+  width:700px;
+  height:55px;
+  margin:0 auto;
+  }
+  ul li a{
+  position:relative;
+  text-decoration:none;
+  color:white;
+  z-index:4;
+  }
+  ul li{
+  position:relative;
+  list-style-type:none;
+  float:left;
+  padding:15px 15px 21px 15px ;
+  font-family:"微软雅黑";
+  font-size:14px;
+  } 
+span{
+display:block;
+position:absolute;
+height:0;
+width:100%;
+background:rgb(99,17,153);
+left:0;
+bottom:0;
+z-index:3;
+}
+
+
+  </style>
+ </head>
+ <body>
+  <div id="Music">
+  <div id = "Menu">
+  <ul>
+  <li MusicName = "do"><a href = "#">音乐库</a><span></span></li>
+  <li MusicName = "re"><a href = "#">歌手库</a><span></span></li>
+  <li MusicName = "mi"><a href = "#">图库</a><span></span></li>
+  <li MusicName = "fa"><a href = "#">歌词</a><span></span></li>
+  <li MusicName = "sol"><a href = "#">直播</a><span></span></li>
+  <li MusicName = "la"><a href = "#">网页播放器</a><span></span></li>
+  <li MusicName = "si"><a href = "#">下载KTV</a><span></span></li>
+  </ul>
+  </div>
+  </div>
+  <div style="display:none"><audio src = "mp3/do.mp3" id="player" controls></audio></div>
+  <script>
+  $("#Menu ul li").hover(function(){
+	  $(this).find("span").animate({height:"53px"},500);
+	  var musicname = $(this).attr("MusicName");
+	  $("#player").attr("src","mp3/"+musicname+".mp3");
+	  $("#player").get(0).play();
+  },function(){
+	  $(this).find("span").animate({height:"0"},300);
+	  $("#player").get(0).pause();
+
+  })
+
+  </script>
+ </body>
+</html>
