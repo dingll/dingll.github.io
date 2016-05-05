@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Qsister</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Qsister">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="Qsister">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Qsister">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Qsister" rel="home">Qsister</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">博观而约取 厚积而薄发</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">主页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/关于我">关于我</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/myResume">我的简历</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/Demo">日常练手</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main">
+  
+    <article id="post-JS面向对象之封装、继承、多态" class="post-JS面向对象之封装、继承、多态 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/03/23/JS面向对象之封装、继承、多态/">JS面向对象之封装、继承、静态方法</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/03/23/JS面向对象之封装、继承、多态/" data-id="cin1pgfki002uz0lyh0zz2v6a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><strong>JS是一种十分灵活的语言，不谈多态（或者说它本身就是多态的）</strong></p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h4 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h4><p>封闭一部分，外界无法直接访问<br>通过开放部分间接访问私有部分</p>
+<h4 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h4><p>不封装：构造函数的所有属性都是开放的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Girl(name,bf)&#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.bf = bf;</span><br><span class="line">&#125;</span><br><span class="line">var girl = new Girl(&quot;林黛玉&quot;,&quot;贾宝玉&quot;);</span><br><span class="line">alert(girl.name + &quot;love&quot; + girl.bf);//林黛玉love贾宝玉</span><br></pre></td></tr></table></figure></p>
+<p>封装：封装部分属性，要靠公共接口才能访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Girl(name,bf)&#123;</span><br><span class="line">    var secret = bf;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.showlove = function()&#123;</span><br><span class="line">        return secret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">var girl = new Girl(&quot;林黛玉&quot;,&quot;贾宝玉&quot;);</span><br><span class="line">alert(girl.name + &quot;love&quot; + girl.secret);//林黛玉love undefined，secret不可访问</span><br><span class="line">alert(girl.name + &quot;love&quot; + girl.showlove());//林黛玉love贾宝玉，通过开放部分间接访问私有属性</span><br></pre></td></tr></table></figure></p>
+<p></p><p style="color:red">总结：用闭包完成私有属性的封装</p><p></p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><h3 id="一、原型继承"><a href="#一、原型继承" class="headerlink" title="一、原型继承"></a>一、原型继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//原型链核心是__proto__</span><br><span class="line">  function Dog()&#123;</span><br><span class="line">	  this.bark = function()&#123;</span><br><span class="line">		  alert(&quot;wangwang&quot;)</span><br><span class="line">	  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  function Hashiqi()&#123;</span><br><span class="line">  &#125;</span><br><span class="line">  Hashiqi.prototype = new Dog();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  var dog1 = new Hashiqi();</span><br><span class="line">  dog1.bark();//wangwang</span><br><span class="line"></span><br><span class="line"> Hashiqi.prototype.bark = function()&#123;</span><br><span class="line">	  alert(&quot;wuwu&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  var dog2 = new Hashiqi();</span><br><span class="line">  dog2.bark();//wuwu</span><br><span class="line"></span><br><span class="line">  var dog3 = new Dog();</span><br><span class="line">  dog3.bark();//wangwang</span><br></pre></td></tr></table></figure>
+<h3 id="二、对象冒充"><a href="#二、对象冒充" class="headerlink" title="二、对象冒充"></a>二、对象冒充</h3><ul>
+<li>临时变量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Parent()&#123;</span><br><span class="line">&#125;</span><br><span class="line">function Child()&#123;</span><br><span class="line">    this.temp = Parent;</span><br><span class="line">    this.temp();</span><br><span class="line">    delete this.temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>call()和apply()</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Parent()&#123;</span><br><span class="line">&#125;</span><br><span class="line">function Child()&#123;</span><br><span class="line">   Parent.call(this,var1,var2...)</span><br><span class="line">   //Parent.apply(this,[var1,var2...])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三、复制继承"><a href="#三、复制继承" class="headerlink" title="三、复制继承"></a>三、复制继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.extend = function(obj)&#123;</span><br><span class="line">    for(var key in obj)&#123;</span><br><span class="line">        if(this[key]==undefined)&#123;</span><br><span class="line">            this[key]=obj[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var cat = &#123;color:&quot;yellow&quot;,climb:function()&#123;alert(&quot;我会爬树&quot;);&#125;&#125;</span><br><span class="line">var tiger = &#123;color:&quot;yellow and black&quot;&#125;</span><br><span class="line">tiger.extend(cat);</span><br><span class="line">tiger.climb();//我会爬树</span><br><span class="line">alert(tiger.color);//yellow and black</span><br></pre></td></tr></table></figure>
+<h3 id="四、混合继承"><a href="#四、混合继承" class="headerlink" title="四、混合继承"></a>四、混合继承</h3><h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//这是一个构造函数，也是一个对象</span><br><span class="line">function Bird()&#123;</span><br><span class="line">    this.wings=2;</span><br><span class="line">    this.fly= function()&#123;</span><br><span class="line">        alert(&quot;我会飞&quot;)；</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//这是Bird对象的静态方法，只属于此对象</span><br><span class="line">Bird.eat = function()&#123;</span><br><span class="line">   alert(&quot;吃虫子&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var niao = new Bird();//Bird的实例，不能访问eat()</span><br></pre></td></tr></table></figure>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/03/23/JS面向对象之封装、继承、多态/">
+    <time datetime="2016-03-23T10:44:07.000Z" class="entry-date">
+        2016-03-23
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/技术/">技术</a>, <a class="article-category-link" href="/categories/技术/JS/">JS</a>, <a class="article-category-link" href="/categories/技术/JS/高级/">高级</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-JS之AO、arguments、this详解" class="post-JS之AO、arguments、this详解 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/03/21/JS之AO、arguments、this详解/">JS之AO、arguments、this详解</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/03/21/JS之AO、arguments、this详解/" data-id="cin1pgfje001sz0ly6d43am3q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>在JS函数嵌套中，变量的寻找方式： <strong>从内到外</strong>，直到最外层（window）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var str1 = &quot;global&quot;;</span><br><span class="line">function t()&#123;</span><br><span class="line">  console.log(str1);//从内到外寻找，最终找到window层：global</span><br><span class="line">  console.log(str2);//内层没有，外层也没有，报错</span><br><span class="line"></span><br><span class="line">  str2 = &quot;local&quot;;//全局赋值操作，但没能执行到这一步</span><br><span class="line">  &#125;</span><br><span class="line">t()</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var str1 = &quot;global&quot;;</span><br><span class="line">function t()&#123;</span><br><span class="line">  console.log(str1);//从内到外寻找，最终找到window层：global</span><br><span class="line">  console.log(str2);//内层有声明，但暂未到赋值操作，故：undefined</span><br><span class="line"></span><br><span class="line">  var str2 = &quot;local&quot;;//声明变量</span><br><span class="line">  &#125;</span><br><span class="line">t()</span><br></pre></td></tr></table></figure>
+<p>上述两例说明：<br><strong>1.JS代码至上而下执行<br>2.但在整体运行前存在 <em>词法分析过程</em>，在此过程中，变量声明先被识别（察觉出变量已存在），但还未赋值</strong></p>
+<h2 id="ActiveObject（活动对象）"><a href="#ActiveObject（活动对象）" class="headerlink" title="ActiveObject（活动对象）"></a>ActiveObject（活动对象）</h2><h4 id="词法分析过程："><a href="#词法分析过程：" class="headerlink" title="词法分析过程："></a>词法分析过程：</h4><ol>
+<li>分析参数</li>
+<li>分析变量声明</li>
+<li>分析函数声明</li>
+</ol>
+<p><strong>具体步骤：</strong></p>
+<ol>
+<li>在函数运行前一瞬间生成AO</li>
+<li>把函数声明的参数形成AO的属性</li>
+<li>分析变量的声明！如var age，若它不在AO属性中，则把它添加到AO的属性，值是undefined</li>
+<li>分析函数的声明！如function t(){}，则把函数赋给AO.t属性若之前t属性已存在，则被函数无情覆盖。<h3 id="例1"><a href="#例1" class="headerlink" title="例1"></a>例1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function a(b)&#123;</span><br><span class="line">   alert(b);</span><br><span class="line">   function b()&#123;</span><br><span class="line">   alert(b);</span><br><span class="line">   &#125;</span><br><span class="line">   b();</span><br><span class="line">&#125;</span><br><span class="line">a(1);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>分析过程：</p>
+<ul>
+<li>传入参数：AO.b=1</li>
+<li>变量声明：无</li>
+<li>函数声明：AO.a=function a();AO.b被覆盖为function b()<br>执行过程：</li>
+<li>alert(b);//function</li>
+<li>b();//它的内部没有b，于是向外层寻找，找到了函数a()中的b,即function<h3 id="例2"><a href="#例2" class="headerlink" title="例2"></a>例2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function a(b)&#123;</span><br><span class="line">   alert(b);</span><br><span class="line">   b = function ()&#123;</span><br><span class="line">   alert(b);</span><br><span class="line">   &#125;</span><br><span class="line">   b();</span><br><span class="line">&#125;</span><br><span class="line">a(1);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>分析过程：</p>
+<ul>
+<li>传入参数：AO.b=1</li>
+<li>变量声明：无</li>
+<li>函数声明：AO.a=function a();<br>执行过程：</li>
+<li>alert(b);//1</li>
+<li>b = function (){<br>   alert(b);<br>   }//赋值操作</li>
+<li>b();//执行匿名函数，它的内部没有b，于是向外层寻找，找到了它自己，即弹出function(){alert(b)}</li>
+</ul>
+<p style="color:red ;font-size:20">总结：函数由内到外产生的AO链，叫做作用域链</p>
+
+<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><p><strong>arguments是一个对象，十分类似于数组；用于接收实参</strong></p>
+<p></p><h5>1、证明arguments不是数组：</h5><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.test = &quot;test&quot;;</span><br><span class="line">    function t()&#123;</span><br><span class="line">        alert(arguments.test);//undefined 说明其不是数组</span><br><span class="line">        alert(arguments[0]);//10 说明arguments接收实参</span><br><span class="line">    &#125;</span><br><span class="line">    alert(new Array().test);//test</span><br><span class="line">    t(10);</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h5>2、arguments长度由实参决定</h5><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function t(a,b)&#123;</span><br><span class="line">       alert(arguments.length);</span><br><span class="line">   &#125;</span><br><span class="line">   t(10,100,1000);//3</span><br><span class="line">   t(10);//1</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h5>3、callee属性</h5><br>arguments.callee返回当前函数引用，用于递归:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function Fibonacci(n)&#123;</span><br><span class="line">    if(n==0)</span><br><span class="line">    &#123;return 0;&#125;</span><br><span class="line">    if(n==1)</span><br><span class="line">    &#123;return 1;&#125;</span><br><span class="line">    else&#123;</span><br><span class="line">    return arguments.callee(n-1)+arguments.callee(n-2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p>
+<h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><p>####两种情况：</p>
+<ol>
+<li>function t(){<br>this.xx=30;//this指向window<br>}</li>
+<li>一般指向函数调用者，即母体对象</li>
+</ol>
+<h4 id="call和apply的用法"><a href="#call和apply的用法" class="headerlink" title="call和apply的用法"></a>call和apply的用法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function t()&#123;</span><br><span class="line">   alert(&quot;我的名字叫做&quot;+this.name);</span><br><span class="line">   &#125;</span><br><span class="line">var human = &#123;name:&quot;lisi&quot;,age:18&#125;;</span><br><span class="line">human.t=t;</span><br><span class="line">human.t();//我的名字叫做lisi，this成功指向了human，但human多了一个方法</span><br></pre></td></tr></table></figure>
+<h5 id="使用call和apply："><a href="#使用call和apply：" class="headerlink" title="使用call和apply："></a>使用call和apply：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function t()&#123;</span><br><span class="line">   alert(&quot;我的名字叫做&quot;+this.name);</span><br><span class="line">   &#125;</span><br><span class="line">var human = &#123;name:&quot;lisi&quot;,age:18&#125;;</span><br><span class="line">t.call(human);       //fun.call(obj,[var1],[var2],[var3]...)或者：</span><br><span class="line">t.apply(human);      //fun.apply(obj,[var1,var2,var3]...)</span><br></pre></td></tr></table></figure>
+<h4 id="this练习题"><a href="#this练习题" class="headerlink" title="this练习题"></a>this练习题</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;this is window&quot;;</span><br><span class="line">var obj = &#123;name:&quot;php&quot;,t:function ()&#123;alert(this.name)&#125;&#125;;</span><br><span class="line">var dog = &#123;name:&quot;wangwang&quot;&#125;;</span><br><span class="line">obj.t();//php</span><br><span class="line">dog.t = obj.t;</span><br><span class="line">dog.t();//wangwang</span><br><span class="line">(dog.t = obj.t)();//this is window</span><br><span class="line">var tmp = dog.t;</span><br><span class="line">tmp();//this is window</span><br></pre></td></tr></table></figure>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/03/21/JS之AO、arguments、this详解/">
+    <time datetime="2016-03-21T11:20:27.000Z" class="entry-date">
+        2016-03-21
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/技术/">技术</a>, <a class="article-category-link" href="/categories/技术/JS/">JS</a>, <a class="article-category-link" href="/categories/技术/JS/高级/">高级</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Ajax高级" class="post-Ajax高级 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/03/20/Ajax高级/">Ajax高级</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/03/20/Ajax高级/" data-id="cin1pgfgq0001z0lyfbwlz08c" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="Ajax-ASP-PHP请求实例"><a href="#Ajax-ASP-PHP请求实例" class="headerlink" title="Ajax ASP/PHP请求实例"></a>Ajax ASP/PHP请求实例</h2><h4 id="前端代码"><a href="#前端代码" class="headerlink" title="前端代码"></a>前端代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">  function showHint(str)</span><br><span class="line">  &#123;//创建对象</span><br><span class="line">	  var xmlhttp;</span><br><span class="line">	  if(str.length==0)</span><br><span class="line">	  &#123;</span><br><span class="line">		  document.getElementById(&quot;txtHint&quot;).innerHTML=&quot;&quot;;</span><br><span class="line">		  return;</span><br><span class="line">	  &#125;</span><br><span class="line">	  if(window.XMLHttpRequest)</span><br><span class="line">	  &#123;</span><br><span class="line">		  xmlhttp = new XMLHttpRequest();</span><br><span class="line">	  &#125;</span><br><span class="line">	  else</span><br><span class="line">	  &#123;</span><br><span class="line">		  xmlhttp = new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);</span><br><span class="line">	  &#125;</span><br><span class="line">	  //准备响应</span><br><span class="line">	  xmlhttp.onreadystatechange = function()&#123;</span><br><span class="line">		  if(xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)</span><br><span class="line">		  &#123;</span><br><span class="line">			  document.getElementById(&quot;txtHint&quot;).innerHTML = xmlhttp.responseText;</span><br><span class="line">		  &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">	  //创建请求</span><br><span class="line">	  xmlhttp.open(&quot;GET&quot;,&quot;url?q=&quot;+str,true);//注意：向后台传递了str</span><br><span class="line">	  //发送请求</span><br><span class="line">	  xmlhttp.send();</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"> &lt;/head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line">  &lt;h3&gt;请在下面的输入框中键入字母(A~Z):&lt;/h3&gt;</span><br><span class="line">  姓氏:&lt;input type=&quot;text&quot; id=&quot;txt&quot; onkeyup=&quot;showHint(this.value)&quot;/&gt;</span><br><span class="line">  &lt;p&gt;建议:&lt;span id=&quot;txtHint&quot;&gt;&lt;/span&gt;&lt;/p&gt;</span><br><span class="line"> &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="ASP文件"><a href="#ASP文件" class="headerlink" title="ASP文件"></a>ASP文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">response.expires=-1</span><br><span class="line">dim a(30)</span><br><span class="line">&apos;用名字来填充数组</span><br><span class="line">a(1)=&quot;Anna&quot;</span><br><span class="line">a(2)=&quot;Brittany&quot;</span><br><span class="line">a(3)=&quot;Cinderella&quot;</span><br><span class="line">a(4)=&quot;Diana&quot;</span><br><span class="line">a(5)=&quot;Eva&quot;</span><br><span class="line">a(6)=&quot;Fiona&quot;</span><br><span class="line">a(7)=&quot;Gunda&quot;</span><br><span class="line">a(8)=&quot;Hege&quot;</span><br><span class="line">a(9)=&quot;Inga&quot;</span><br><span class="line">a(10)=&quot;Johanna&quot;</span><br><span class="line">a(11)=&quot;Kitty&quot;</span><br><span class="line">a(12)=&quot;Linda&quot;</span><br><span class="line">a(13)=&quot;Nina&quot;</span><br><span class="line">a(14)=&quot;Ophelia&quot;</span><br><span class="line">a(15)=&quot;Petunia&quot;</span><br><span class="line">a(16)=&quot;Amanda&quot;</span><br><span class="line">a(17)=&quot;Raquel&quot;</span><br><span class="line">a(18)=&quot;Cindy&quot;</span><br><span class="line">a(19)=&quot;Doris&quot;</span><br><span class="line">a(20)=&quot;Eve&quot;</span><br><span class="line">a(21)=&quot;Evita&quot;</span><br><span class="line">a(22)=&quot;Sunniva&quot;</span><br><span class="line">a(23)=&quot;Tove&quot;</span><br><span class="line">a(24)=&quot;Unni&quot;</span><br><span class="line">a(25)=&quot;Violet&quot;</span><br><span class="line">a(26)=&quot;Liza&quot;</span><br><span class="line">a(27)=&quot;Elizabeth&quot;</span><br><span class="line">a(28)=&quot;Ellen&quot;</span><br><span class="line">a(29)=&quot;Wenche&quot;</span><br><span class="line">a(30)=&quot;Vicky&quot;</span><br><span class="line"></span><br><span class="line">&apos;获得来自 URL 的 q 参数</span><br><span class="line">q=ucase(request.querystring(&quot;q&quot;))</span><br><span class="line"></span><br><span class="line">&apos;如果 q 大于 0，则查找数组中的所有提示</span><br><span class="line">if len(q)&gt;0 then</span><br><span class="line">  hint=&quot;&quot;</span><br><span class="line">  for i=1 to 30</span><br><span class="line">    if q=ucase(mid(a(i),1,len(q))) then</span><br><span class="line">      if hint=&quot;&quot; then</span><br><span class="line">        hint=a(i)</span><br><span class="line">      else</span><br><span class="line">        hint=hint &amp; &quot; , &quot; &amp; a(i)</span><br><span class="line">      end if</span><br><span class="line">    end if</span><br><span class="line">  next</span><br><span class="line">end if</span><br><span class="line"></span><br><span class="line">&apos;如果未找到提示，则输出 &quot;no suggestion&quot;</span><br><span class="line">&apos;否则输出正确的值</span><br><span class="line">if hint=&quot;&quot; then</span><br><span class="line">  response.write(&quot;no suggestion&quot;)</span><br><span class="line">else</span><br><span class="line">  response.write(hint)</span><br><span class="line">end if</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="PHP文件"><a href="#PHP文件" class="headerlink" title="PHP文件"></a>PHP文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 用名字来填充数组</span><br><span class="line">$a[]=&quot;Anna&quot;;</span><br><span class="line">$a[]=&quot;Brittany&quot;;</span><br><span class="line">$a[]=&quot;Cinderella&quot;;</span><br><span class="line">$a[]=&quot;Diana&quot;;</span><br><span class="line">$a[]=&quot;Eva&quot;;</span><br><span class="line">$a[]=&quot;Fiona&quot;;</span><br><span class="line">$a[]=&quot;Gunda&quot;;</span><br><span class="line">$a[]=&quot;Hege&quot;;</span><br><span class="line">$a[]=&quot;Inga&quot;;</span><br><span class="line">$a[]=&quot;Johanna&quot;;</span><br><span class="line">$a[]=&quot;Kitty&quot;;</span><br><span class="line">$a[]=&quot;Linda&quot;;</span><br><span class="line">$a[]=&quot;Nina&quot;;</span><br><span class="line">$a[]=&quot;Ophelia&quot;;</span><br><span class="line">$a[]=&quot;Petunia&quot;;</span><br><span class="line">$a[]=&quot;Amanda&quot;;</span><br><span class="line">$a[]=&quot;Raquel&quot;;</span><br><span class="line">$a[]=&quot;Cindy&quot;;</span><br><span class="line">$a[]=&quot;Doris&quot;;</span><br><span class="line">$a[]=&quot;Eve&quot;;</span><br><span class="line">$a[]=&quot;Evita&quot;;</span><br><span class="line">$a[]=&quot;Sunniva&quot;;</span><br><span class="line">$a[]=&quot;Tove&quot;;</span><br><span class="line">$a[]=&quot;Unni&quot;;</span><br><span class="line">$a[]=&quot;Violet&quot;;</span><br><span class="line">$a[]=&quot;Liza&quot;;</span><br><span class="line">$a[]=&quot;Elizabeth&quot;;</span><br><span class="line">$a[]=&quot;Ellen&quot;;</span><br><span class="line">$a[]=&quot;Wenche&quot;;</span><br><span class="line">$a[]=&quot;Vicky&quot;;</span><br><span class="line"></span><br><span class="line">//获得来自 URL 的 q 参数</span><br><span class="line">$q=$_GET[&quot;q&quot;];</span><br><span class="line"></span><br><span class="line">//如果 q 大于 0，则查找数组中的所有提示</span><br><span class="line">if (strlen($q) &gt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">  $hint=&quot;&quot;;</span><br><span class="line">  for($i=0; $i&lt;count($a); $i++)</span><br><span class="line">    &#123;</span><br><span class="line">    if (strtolower($q)==strtolower(substr($a[$i],0,strlen($q))))</span><br><span class="line">      &#123;</span><br><span class="line">      if ($hint==&quot;&quot;)</span><br><span class="line">        &#123;</span><br><span class="line">        $hint=$a[$i];</span><br><span class="line">        &#125;</span><br><span class="line">      else</span><br><span class="line">        &#123;</span><br><span class="line">        $hint=$hint.&quot; , &quot;.$a[$i];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">// 如果未找到提示，则把输出设置为 &quot;no suggestion&quot;</span><br><span class="line">// 否则设置为正确的值</span><br><span class="line">if ($hint == &quot;&quot;)</span><br><span class="line">  &#123;</span><br><span class="line">  $response=&quot;no suggestion&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">else</span><br><span class="line">  &#123;</span><br><span class="line">  $response=$hint;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">//输出响应</span><br><span class="line">echo $response;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Ajax-数据库实例"><a href="#Ajax-数据库实例" class="headerlink" title="Ajax 数据库实例"></a>Ajax 数据库实例</h2><h4 id="前台代码同上例，功能核心在于服务器脚本：对数据库进行查询。ASP源码如下："><a href="#前台代码同上例，功能核心在于服务器脚本：对数据库进行查询。ASP源码如下：" class="headerlink" title="前台代码同上例，功能核心在于服务器脚本：对数据库进行查询。ASP源码如下："></a>前台代码同上例，功能核心在于服务器脚本：对数据库进行查询。ASP源码如下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">response.expires=-1</span><br><span class="line">sql=&quot;SELECT * FROM CUSTOMERS WHERE CUSTOMERID=&quot;</span><br><span class="line">sql=sql &amp; &quot;&apos;&quot; &amp; request.querystring(&quot;q&quot;) &amp; &quot;&apos;&quot;</span><br><span class="line"></span><br><span class="line">set conn=Server.CreateObject(&quot;ADODB.Connection&quot;)</span><br><span class="line">conn.Provider=&quot;Microsoft.Jet.OLEDB.4.0&quot;</span><br><span class="line">conn.Open(Server.Mappath(&quot;/db/northwind.mdb&quot;))</span><br><span class="line">set rs=Server.CreateObject(&quot;ADODB.recordset&quot;)</span><br><span class="line">rs.Open sql,conn</span><br><span class="line"></span><br><span class="line">response.write(&quot;&lt;table&gt;&quot;)//以表格形式显示</span><br><span class="line">do until rs.EOF</span><br><span class="line">  for each x in rs.Fields</span><br><span class="line">    response.write(&quot;&lt;tr&gt;&lt;td&gt;&lt;b&gt;&quot; &amp; x.name &amp; &quot;&lt;/b&gt;&lt;/td&gt;&quot;)</span><br><span class="line">    response.write(&quot;&lt;td&gt;&quot; &amp; x.value &amp; &quot;&lt;/td&gt;&lt;/tr&gt;&quot;)</span><br><span class="line">  next</span><br><span class="line">  rs.MoveNext</span><br><span class="line">loop</span><br><span class="line">response.write(&quot;&lt;/table&gt;&quot;)</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Ajax-XML实例"><a href="#Ajax-XML实例" class="headerlink" title="Ajax XML实例"></a>Ajax XML实例</h2><p>当服务器响应就绪时，会构建一个 HTML 表格，从 XML 文件中提取节点（元素），最后使用已经填充了 XML 数据的 HTML 表格来更新 txtCDInfo 占位符：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">function loadXMLDoc(url)</span><br><span class="line">&#123;</span><br><span class="line">var xmlhttp;</span><br><span class="line">var txt,xx,x,i;</span><br><span class="line">if (window.XMLHttpRequest)</span><br><span class="line">  &#123;// code for IE7+, Firefox, Chrome, Opera, Safari</span><br><span class="line">  xmlhttp=new XMLHttpRequest();</span><br><span class="line">  &#125;</span><br><span class="line">else</span><br><span class="line">  &#123;// code for IE6, IE5</span><br><span class="line">  xmlhttp=new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">xmlhttp.onreadystatechange=function()</span><br><span class="line">  &#123;</span><br><span class="line">  if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)</span><br><span class="line">    &#123;</span><br><span class="line">    txt=&quot;&lt;table border=&apos;1&apos;&gt;&lt;tr&gt;&lt;th&gt;Title&lt;/th&gt;&lt;th&gt;Artist&lt;/th&gt;&lt;/tr&gt;&quot;;</span><br><span class="line">    x=xmlhttp.responseXML.documentElement.getElementsByTagName(&quot;CD&quot;);</span><br><span class="line">    for (i=0;i&lt;x.length;i++)</span><br><span class="line">      &#123;</span><br><span class="line">      txt=txt + &quot;&lt;tr&gt;&quot;;</span><br><span class="line">      xx=x[i].getElementsByTagName(&quot;TITLE&quot;);</span><br><span class="line">        &#123;</span><br><span class="line">        try</span><br><span class="line">          &#123;</span><br><span class="line">          txt=txt + &quot;&lt;td&gt;&quot; + xx[0].firstChild.nodeValue + &quot;&lt;/td&gt;&quot;;</span><br><span class="line">          &#125;</span><br><span class="line">        catch (er)</span><br><span class="line">          &#123;</span><br><span class="line">          txt=txt + &quot;&lt;td&gt; &lt;/td&gt;&quot;;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    xx=x[i].getElementsByTagName(&quot;ARTIST&quot;);</span><br><span class="line">      &#123;</span><br><span class="line">        try</span><br><span class="line">          &#123;</span><br><span class="line">          txt=txt + &quot;&lt;td&gt;&quot; + xx[0].firstChild.nodeValue + &quot;&lt;/td&gt;&quot;;</span><br><span class="line">          &#125;</span><br><span class="line">        catch (er)</span><br><span class="line">          &#123;</span><br><span class="line">          txt=txt + &quot;&lt;td&gt; &lt;/td&gt;&quot;;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      txt=txt + &quot;&lt;/tr&gt;&quot;;</span><br><span class="line">      &#125;</span><br><span class="line">    txt=txt + &quot;&lt;/table&gt;&quot;;</span><br><span class="line">    document.getElementById(&apos;txtCDInfo&apos;).innerHTML=txt;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">xmlhttp.open(&quot;GET&quot;,url,true);</span><br><span class="line">xmlhttp.send();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="jQuery中的Ajax"><a href="#jQuery中的Ajax" class="headerlink" title="jQuery中的Ajax"></a>jQuery中的Ajax</h2><p>jQuery封装了ajax方法：<br>$.ajax({<br>type:”GET”,<br>url:..,<br>dataType:”json”,<br>data:{json},<br>success:function(){},<br>error:function(){}<br>})</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/03/20/Ajax高级/">
+    <time datetime="2016-03-20T10:10:39.000Z" class="entry-date">
+        2016-03-20
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/技术/">技术</a>, <a class="article-category-link" href="/categories/技术/JS/">JS</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Ajax全接触" class="post-Ajax全接触 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/03/19/Ajax全接触/">Ajax基础</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/03/19/Ajax全接触/" data-id="cin1pgfh30007z0ly68q6kgfj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>对于 web 开发人员来说，发送异步请求是一个巨大的进步。很多在服务器执行的任务都相当费时。AJAX 出现之前，这可能会引起应用程序挂起或停止。通过ajax，js可以在等待服务器响应时执行其他脚本</p>
+<h2 id="在后台与服务器进行少量的数据交换，实现网页的局部刷新"><a href="#在后台与服务器进行少量的数据交换，实现网页的局部刷新" class="headerlink" title="在后台与服务器进行少量的数据交换，实现网页的局部刷新"></a>在后台与服务器进行少量的数据交换，实现网页的局部刷新</h2><h3 id="核心-XMLHttpRequest对象-IE5和IE6用ActiveXObject-用于在后台与服务端交换数据"><a href="#核心-XMLHttpRequest对象-IE5和IE6用ActiveXObject-用于在后台与服务端交换数据" class="headerlink" title="核心:XMLHttpRequest对象(IE5和IE6用ActiveXObject)用于在后台与服务端交换数据"></a>核心:XMLHttpRequest对象(IE5和IE6用ActiveXObject)用于在后台与服务端交换数据</h3><h2 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h2><h4 id="1-创建对象"><a href="#1-创建对象" class="headerlink" title="1.创建对象"></a>1.创建对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var xmlhttp;</span><br><span class="line">if(window.XMLHttpRequest)</span><br><span class="line">&#123;</span><br><span class="line">   xmlhttp = new XMLHttpRequest();</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">   xmlhttp = new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-创建请求"><a href="#2-创建请求" class="headerlink" title="2.创建请求"></a>2.创建请求</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp.open(&quot;GET&quot;,&quot;test.txt&quot;,true);</span><br><span class="line">/*</span><br><span class="line">open(method,url,async)</span><br><span class="line">method：请求的类型；GET 或 POST</span><br><span class="line">url：文件在服务器上的位置</span><br><span class="line">async：true（异步）或 false（同步）处理请求。ajax中必须为true</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>为了避免浏览器缓存，可以给url添加一个唯一的ID：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp.open(&quot;GET&quot;,&quot;test.txt?t=&quot; + Math.random(),true);</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-发送请求"><a href="#3-发送请求" class="headerlink" title="3.发送请求"></a>3.发送请求</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp.send()//在POST方式下可以有参数string(希望发送的数据)</span><br></pre></td></tr></table></figure>
+<p>如果需要像 HTML 表单那样 POST 数据，请使用 setRequestHeader() 来添加 HTTP 头<br>setRequestHeader(header,value)<br>header:规定头的名称<br>value:规定头的值</p>
+<h4 id="4-服务器响应"><a href="#4-服务器响应" class="headerlink" title="4.服务器响应"></a>4.服务器响应</h4><p>如需获得来自服务器的响应，使用 XMLHttpRequest 对象的 responseText 或 responseXML 属性。<br>responseText：获得字符串形式的响应数据<br>responseXML：获得XML形式的响应数据</p>
+<p>当async=true 时，规定在响应处于 onreadystatechange 事件中的就绪状态时执行的函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp.onreadystatechange=function()</span><br><span class="line">  &#123;</span><br><span class="line">  if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)</span><br><span class="line">    &#123;</span><br><span class="line">    document.getElementById(&quot;myDiv&quot;).innerHTML=xmlhttp.responseText;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">xmlhttp.open(&quot;GET&quot;,&quot;test1.txt&quot;,true);</span><br><span class="line">xmlhttp.send();</span><br></pre></td></tr></table></figure></p>
+<h2 id="onreadystatechange-事件"><a href="#onreadystatechange-事件" class="headerlink" title="onreadystatechange 事件"></a>onreadystatechange 事件</h2><p>当请求被发送到服务器时，我们需要执行一些基于响应的任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">onreadystatechange——存储函数，readyState改变时触发</span><br><span class="line">readyState——保存XMLHttpRequest状态信息</span><br><span class="line">0：请求未初始化</span><br><span class="line">1：服务器连接已建立</span><br><span class="line">2：请求已接收</span><br><span class="line">3：请求处理中</span><br><span class="line">4：请求已完成，且响应已就绪</span><br><span class="line">status——200：&quot;OK&quot;</span><br><span class="line">        404：未找到页面</span><br></pre></td></tr></table></figure></p>
+<p><strong>当readyState 等于 4 且状态为 200 时，表示响应已就绪</strong></p>
+<p><em>更多实例参见下一篇《<a href="http://qsister.github.io/2016/03/20/Ajax%E9%AB%98%E7%BA%A7/" target="_blank" rel="external">ajax高级</a>》</em></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/03/19/Ajax全接触/">
+    <time datetime="2016-03-19T12:05:02.000Z" class="entry-date">
+        2016-03-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/技术/">技术</a>, <a class="article-category-link" href="/categories/技术/JS/">JS</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-JS中的BOM对象" class="post-JS中的BOM对象 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/03/19/JS中的BOM对象/">JS中的BOM对象</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/03/19/JS中的BOM对象/" data-id="cin1pgfin001az0lyt160bzp9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="浏览器对象模型，提供了很多对象，用于访问浏览器的功能，这些功能与具体网页内容无关。以下共四个BOM详解："><a href="#浏览器对象模型，提供了很多对象，用于访问浏览器的功能，这些功能与具体网页内容无关。以下共四个BOM详解：" class="headerlink" title="浏览器对象模型，提供了很多对象，用于访问浏览器的功能，这些功能与具体网页内容无关。以下共四个BOM详解："></a>浏览器对象模型，提供了很多对象，用于访问浏览器的功能，这些功能与具体网页内容无关。以下共四个BOM详解：</h3><h4 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h4><ol>
+<li><p>它既是通过js访问浏览器窗口的一个接口，又是ECMAScript规定的global对象，因此所有在全局作用域中声的变量、函数都会变成window 对象的属性和方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var age = 29;</span><br><span class="line">function sayAge()&#123;</span><br><span class="line">alert(this.age);</span><br><span class="line">&#125;</span><br><span class="line">alert(window.age); //29</span><br><span class="line">sayAge(); //29</span><br><span class="line">window.sayAge(); //29</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>但是</strong>全局变量不能通过delete删除，而直接在window对象上定义的属性可以：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var age = 29;</span><br><span class="line">window.color = &quot;red&quot;;</span><br><span class="line">delete window.age;//在IE &lt; 9 时抛出错误，在其他所有浏览器中都返回false</span><br><span class="line">delete window.color;//在IE &lt; 9 时抛出错误，在其他所有浏览器中都返回true</span><br><span class="line">alert(window.age); //29，删除失败</span><br><span class="line">alert(window.color); //undefined，删除成功</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>尝试访问未声明的变量会抛出错误，但是通过查询window 对象，可以知道某个可能未声明的变量是否存在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var newValue = oldValue;//这里会抛出错误，因为oldValue 未定义</span><br><span class="line">var newValue = window.oldValue;//newValue 的值是undefined,因为这是一次属性查询</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>跨浏览器取得窗口左边和上边的位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var leftPos = (typeof window.screenLeft == &quot;number&quot;) ?</span><br><span class="line">window.screenLeft : window.screenX;</span><br><span class="line">var topPos = (typeof window.screenTop == &quot;number&quot;) ?</span><br><span class="line">window.screenTop : window.screenY;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>系统对话框<br>alert：系统提示框<br>confirm：确认框</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var sure = confirm(&apos;are you have a good time ?&apos;);</span><br><span class="line">if(sure)&#123;</span><br><span class="line">alert(&apos;yes, you have a good time !&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>prompt：系统输入框<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var getname = prompt(&apos;what&apos;s you name ?&apos;,&apos;name&apos;);//参数1为提示语, 参数2为默认字符.</span><br><span class="line">alert(getname);</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>间歇调用和超时调用<br>间歇调用：setInterval()间隔一定时间重复调用<br>超时调用：setTimeout()一次调用</li>
+<li>跨浏览器获取页面视窗大小<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var pageWidth = window.innerWidth,</span><br><span class="line">    pageHeight = window.innerHeight;</span><br><span class="line">if(typeof pageWidth !=&quot;number&quot;)&#123;</span><br><span class="line">    if (document.compatMode == &quot;CSS1Compat&quot;)&#123;      //IE</span><br><span class="line">        pageWidth = document.documentElement.clientWidth;</span><br><span class="line">        pageHeight = document.documentElement.clientHeight;</span><br><span class="line">        &#125;</span><br><span class="line">    else &#123;                                         //FF</span><br><span class="line">        pageWidth = document.body.clientWidth;</span><br><span class="line">        pageHeight = document.body.clientHeight;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h4><p>它提供了与当前窗口中加载的文档有关的信息，还提供了一些导航功能：</p>
+<ul>
+<li>hash 返回URL中的hash（#号后跟零或多个字符），如果URL中不包含散列，则返回空字符串,例”#contents”</li>
+<li>host 返回服务器名称和端口号(如果有).例”www.zhaosywz.com:80”</li>
+<li>hostname 返回不带端口号的服务器名称.例”www.zhaosywz.com”</li>
+<li>href 返回当前页面的完整url.例”www.zhaosywz.com/index.html”</li>
+<li>pathname 返回url中的目录或文件名,例”/category/shoes”</li>
+<li>port 返回url的端口号,如果没有则返回空字符串.例”8080”</li>
+<li>protocol 返回页面使用的协议。通常是http:或https:</li>
+<li>search 返回URL的查询字符串。这个字符串以问号开头,’?id=100’</li>
+<li>通过reload()可以重新加载当前页面</li>
+</ul>
+<h4 id="navigator对象"><a href="#navigator对象" class="headerlink" title="navigator对象"></a>navigator对象</h4><p><strong>识别浏览器</strong></p>
+<ul>
+<li>appCodeName 浏览器的名称。通常都是Mozilla，即使在非Mozilla浏览器中也是如此</li>
+<li>appName 完整的浏览器名称</li>
+<li>appVersion 浏览器版本，一般不与实际的浏览器版本对应.</li>
+<li>cookieEnabled 表示cookie是否启用</li>
+<li>javaEnabled() 表示单签浏览器是否启用Java</li>
+<li>onLine 表示浏览器是否连接到了因特网</li>
+<li>mimeTypes 在浏览器中注册的MIME类型数组</li>
+<li>platform 浏览器的系统平台</li>
+<li>plugins 浏览器中安装的插件信息的数组</li>
+<li>userAgent 浏览器用户代理字符串；userAgent是最常用的属性。</li>
+</ul>
+<h4 id="history对象"><a href="#history对象" class="headerlink" title="history对象"></a>history对象</h4><p>history 对象保存着用户上网的历史记录，从窗口被打开的那一刻算起。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">history.forward();//前进一页</span><br><span class="line">history.back();//后退一页</span><br><span class="line">history.go(1);//前进一页</span><br><span class="line">history.go(2);//前进两页</span><br><span class="line">history.go(-1);//后退一页</span><br><span class="line">history.go(&quot;wrox.com&quot;);//跳转到最近的包含&quot;wrox.com&quot;字符的页面</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/03/19/JS中的BOM对象/">
+    <time datetime="2016-03-19T08:16:43.000Z" class="entry-date">
+        2016-03-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/技术/">技术</a>, <a class="article-category-link" href="/categories/技术/JS/">JS</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-JS闭包" class="post-JS闭包 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/03/19/JS闭包/">JS闭包</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/03/19/JS闭包/" data-id="cin1pgfj1001iz0ly89x3qi3n" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><a href="http://wangnan1305.github.io/2016/03/10/闭包/" target="_blank" rel="external">闭包详解</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/03/19/JS闭包/">
+    <time datetime="2016-03-19T07:41:20.000Z" class="entry-date">
+        2016-03-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/技术/">技术</a>, <a class="article-category-link" href="/categories/技术/JS/">JS</a>, <a class="article-category-link" href="/categories/技术/JS/高级/">高级</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-CSS-hack" class="post-CSS-hack post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/03/15/CSS-hack/">CSS-hack</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/03/15/CSS-hack/" data-id="cin1pgfh00005z0lylaz261i4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="什么是CSS-hack？"><a href="#什么是CSS-hack？" class="headerlink" title="什么是CSS hack？"></a>什么是CSS hack？</h3><p>CSS hack是通过在CSS样式中加入一些特殊的符号，让不同的浏览器识别不同的符号，以达到应用不同的CSS样式的目的。<br>比如.div{width:300px;_width:200px;}，一般浏览器会先给元素使用width:300px;的样式，紧接着后面还有个_width:200px;由于下划线_width只有IE6可以识别，所以此样式在IE6中实际设置对象的宽度为200px，后面的把前面的给覆盖了，而其他浏览器不识别_width不会执行_width:200px;这句样式，所以在其他浏览器中设置对象的宽度就是300px。</p>
+<h3 id="CSS-hack解决问题"><a href="#CSS-hack解决问题" class="headerlink" title="CSS hack解决问题"></a>CSS hack解决问题</h3><p>CSS hack用来解决有些css属性在不同浏览器中显示的效果不一样的问题，如margin属性在ie6中显示的距离会比其他浏览器中显示的距离宽2倍，也就是说margin-left:20px;在ie6中距左侧对象的实际显示距离是40px，而在非ie6中显示的距左侧对象的距离是设置的值20px;所以要想设置一个对象距离左侧对象的距离在所有浏览器中都显示是20px的宽度的样式应为：.kwstu{margin-left:20px;_margin-left:20px;}。</p>
+<h3 id="兼容各大主流浏览器css-hack汇总如下"><a href="#兼容各大主流浏览器css-hack汇总如下" class="headerlink" title="兼容各大主流浏览器css hack汇总如下"></a>兼容各大主流浏览器css hack汇总如下</h3><p>.element{<br>color:#000;             /<em>w3c标准</em>/<br>[;color:#f00;];         /<em>Webkit(chrome和safari)</em>/<br>color:#666\9;           /<em>IE8</em>/<br><em>color:#999;            /</em>IE7 <em>/<br>_color:#333;            /</em>IE6*/<br>}</p>
+<p>:root .element{color:#0f0\9;}  /<em>IE9</em>/</p>
+<p>@media all and (-webkit-min-device-pixel-ratio:10000), not all and (<br>-webkit-min-device-pixel-ratio:0) { .element{color:#336699;}}  /<em>opera</em>/<br>@-moz-document url-prefix(){ .element{color:#f1f1f1;}} /<em>Firefox</em>/</p>
+<p><a href="http://www.kwstu.com/Admin/ViewArticle/201409011604277330" target="_blank" rel="external">CSS hack详解</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/03/15/CSS-hack/">
+    <time datetime="2016-03-15T09:12:00.000Z" class="entry-date">
+        2016-03-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/技术/">技术</a>, <a class="article-category-link" href="/categories/技术/CSS/">CSS</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-CSS定位和浮动" class="post-CSS定位和浮动 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/03/15/CSS定位和浮动/">CSS定位与浮动</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/03/15/CSS定位和浮动/" data-id="cin1pgfhn000gz0lyu55wrdcd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>(CSS边距合并：margin，当两个垂直外边距相遇时，它们将形成一个外边距。合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。)</p>
+<h3 id="定位详解"><a href="#定位详解" class="headerlink" title="定位详解"></a>定位详解</h3><p>CSS有三种基本的定位机制： <em>普通流（static和relative）</em> 、 <em>浮动</em> 和 <em>绝对定位（absolute和fixed）</em><br><strong>static</strong><br>元素框正常生成。块级元素生成一个矩形框，作为文档流的一部分；行内元素创建行框，置于其父元素中。<br><strong>relative</strong><br>相对定位， <em>相对于它未定位之前（普通流中）的位置</em>。原空间仍然保留。<br><strong>absolute</strong><br>绝对定位，元素框完全脱离文档流， <em>相对于其包含块定位</em>；在正常流中的空间会关闭；不论原先是什么类型的框，绝对定位后都生成块级框。<br><strong>fixed</strong><br>表现类似于absolute，不过其包含块是视窗本身。</p>
+<h3 id="浮动"><a href="#浮动" class="headerlink" title="浮动"></a>浮动</h3><p>float属性实现元素的浮动<br>浮动的框可以向左或向右移动，直到它的外边缘碰到包含框或者另一个浮动框的边框为止。<br><strong>脱离文档流</strong>所以文档流中的 <em>块框（也仅仅是块框）</em>就表现得好像浮动框不存在一样<br>（块框与之重叠，行框会围绕它）</p>
+<p><em>注意：绝对定位中，行框不会围绕着定位元素，但是在float浮动中，行框会围绕浮动框</em></p>
+<h3 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h3><p>clear属性：left/right/both/none/inherit<br>是否允许元素左右出现浮动元素。<br>常用清除浮动的方式：</p>
+<ol>
+<li>结尾处加空div标签clear：both</li>
+<li>页脚div进行清理。类似于上一条</li>
+<li>对父容器进行浮动（详见w3school，CSS浮动）</li>
+</ol>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/03/15/CSS定位和浮动/">
+    <time datetime="2016-03-15T04:03:53.000Z" class="entry-date">
+        2016-03-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/技术/">技术</a>, <a class="article-category-link" href="/categories/技术/CSS/">CSS</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-CSS伪类选择器" class="post-CSS伪类选择器 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/03/14/CSS伪类选择器/">CSS伪类选择器(:)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/03/14/CSS伪类选择器/" data-id="cin1pgfgy0004z0ly3pug96k6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h4 id="动态伪类"><a href="#动态伪类" class="headerlink" title="动态伪类"></a>动态伪类</h4><h5 id="锚点伪类"><a href="#锚点伪类" class="headerlink" title="锚点伪类"></a>锚点伪类</h5><p>.demo a:link {color:gray;}/<em>链接没有被访问时前景色为红色</em>/<br>.demo a:visited{color:yellow;}/<em>链接被访问过后前景色为黄色</em>/<br>.demo a:hover{color:green;}/<em>鼠标悬浮在链接上时前景色为绿色</em>/<br>.demo a:active{color:blue;}/<em>鼠标点中激活链接那一下前景色为蓝色</em>/<br>对于这四个锚点伪类的设置，有一点需要特别注意，那就是他们的先后顺序，要让他们遵守一个爱恨原则LoVe/HAte,也就是Link–visited–hover–active。</p>
+<h5 id="用户行为伪类"><a href="#用户行为伪类" class="headerlink" title="用户行为伪类"></a>用户行为伪类</h5><p>:hover用于当用户把鼠标移动到元素上面时的效果；<br>:active用于用户点击元素那一下的效果（正发生在点的那一下，松开鼠标左键此动作也就完成了）<br>:focus用于元素成为焦点，这个经常用在表单元素上。</p>
+<h4 id="UI元素状态伪类"><a href="#UI元素状态伪类" class="headerlink" title="UI元素状态伪类"></a>UI元素状态伪类</h4><p>“:enabled”,”:disabled”,”:checked”伪类称为UI元素状态伪类，对应着元素的不同状态<br>input[type=”text”]:disabled {border:1px solid #999;background-color: #fefefe;}</p>
+<h4 id="CSS3的结构类选择器"><a href="#CSS3的结构类选择器" class="headerlink" title="CSS3的结构类选择器"></a>CSS3的结构类选择器</h4><p>:fist-child选择某个元素的第一个子元素；<br>:last-child选择某个元素的最后一个子元素；<br>:nth-child()选择某个元素的一个或多个特定的子元素；<br>:nth-last-child()选择某个元素的一个或多个特定的子元素，从这个元素的最后一个子元素开始算；<br>:nth-of-type()选择指定的元素；<br>:nth-last-of-type()选择指定的元素，从元素的最后一个开始计算；<br>:first-of-type选择一个上级元素下的第一个同类子元素；<br>:last-of-type选择一个上级元素的最后一个同类子元素；<br>:only-child选择的元素是它的父元素的唯一一个了元素；<br>:only-of-type选择一个元素是它的上级元素的唯一一个相同类型的子元素；<br>:empty选择的元素里面没有任何内容。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/03/14/CSS伪类选择器/">
+    <time datetime="2016-03-14T12:35:19.000Z" class="entry-date">
+        2016-03-14
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/技术/">技术</a>, <a class="article-category-link" href="/categories/技术/CSS/">CSS</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-HTTP状态码" class="post-HTTP状态码 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/03/14/HTTP状态码/">HTTP状态码</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/03/14/HTTP状态码/" data-id="cin1pgfhh000dz0lyzbe8jzz5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位数字代码。<br>所有状态码的第一个数字代表了响应的五种状态之一。</p>
+<h4 id="100系列码"><a href="#100系列码" class="headerlink" title="100系列码"></a>100系列码</h4><p>信息报告码，表示请求已被接受，需要继续处理</p>
+<h4 id="200系列码"><a href="#200系列码" class="headerlink" title="200系列码"></a>200系列码</h4><p>操作成功码，代表请求已成功被服务器接收、理解、并接受</p>
+<h4 id="300系列码"><a href="#300系列码" class="headerlink" title="300系列码"></a>300系列码</h4><p>重定向代码，这类状态码代表需要客户端采取进一步的操作才能完成请求。通常，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的 Location 域中指明。</p>
+<h4 id="400系列码"><a href="#400系列码" class="headerlink" title="400系列码"></a>400系列码</h4><p>客户端错误码，表示客户端可能发生了错误，妨碍了服务器处理。</p>
+<h4 id="500系列码"><a href="#500系列码" class="headerlink" title="500系列码"></a>500系列码</h4><p>服务器错误码</p>
+<h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><p>200：OK  //请求已成功，请求所希望的响应头或数据体将随此响应返回。<br>304：Not Modified(未修改) //如果客户端发送了一个带条件的 GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。<br>403：Forbidden  //服务器已经理解请求，但是拒绝执行它。与401响应不同的是，身份验证并不能提供任何帮助，而且这个请求也不应该被重复提交。<br>404: Method Not Allowed  //请求行中指定的请求方法不能被用于请求相应的资源。<br>500: Internal Server Error  //内部服务出错，一般是源代码错误</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/03/14/HTTP状态码/">
+    <time datetime="2016-03-14T11:31:54.000Z" class="entry-date">
+        2016-03-14
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/技术/">技术</a>, <a class="article-category-link" href="/categories/技术/HTML/">HTML</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+  
+    <nav id="pagination">
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      </nav>
+    </nav>
+  
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a><span class="category-list-count">22</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/CANVAS/">CANVAS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/CSS/">CSS</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/DOM/">DOM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/HTML/">HTML</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/JS/">JS</a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/JS/高级/">高级</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/PHP/">PHP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/hexo搭建博客/">hexo搭建博客</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/算法/">算法</a><span class="category-list-count">2</span></li></ul></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/14/canvas/">canvas</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/14/CSS雪碧图/">CSS雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/10/AngularJS基础/">AngularJS基础</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/09/JSON/">JSON</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/07/响应式布局/">响应式设计</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2016 Qsister
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
